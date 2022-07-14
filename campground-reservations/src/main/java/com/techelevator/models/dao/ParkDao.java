@@ -6,6 +6,9 @@ import java.util.List;
 
 public interface ParkDao
 {
-    List<Park> getAllParks();
+   List<Park> getAllParks();
+
     Park getParkById(int parkId);
+
+
 }

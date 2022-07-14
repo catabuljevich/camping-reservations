@@ -27,7 +27,7 @@ public class UserInterfaceTest
     public void tearDown()
     {
         //set the UserInterface streams back to default
-        UserInterface.setIn(System.in);
+        UserInput.setIn(System.in);
         System.setOut(originalOut);
     }
 
@@ -37,13 +37,13 @@ public class UserInterfaceTest
         // arrange
         String input = "1\n";
         inStream = new ByteArrayInputStream(input.getBytes());
-        UserInterface.setIn(inStream);
+        UserInput.setIn(inStream);
 
         String expected = "list";
         String message = "Because 'list' should be returned when the user selects option 1.";
 
         // act
-        String actual = UserInterface.getHomeScreenSelection();
+        String actual = UserInput.getHomeScreenSelection();
 
         // assert
         assertEquals(message, expected, actual);
@@ -56,13 +56,13 @@ public class UserInterfaceTest
         // arrange
         String input = "wrong\n";
         inStream = new ByteArrayInputStream(input.getBytes());
-        UserInterface.setIn(inStream);
+        UserInput.setIn(inStream);
 
         String expected = "invalid";
         String message = "Because 'invlid' should be returned when the user enters an unrecognized option.";
 
         // act
-        String actual = UserInterface.getHomeScreenSelection();
+        String actual = UserInput.getHomeScreenSelection();
 
         // assert
         assertEquals(message, expected, actual);
@@ -85,7 +85,7 @@ public class UserInterfaceTest
 
 
         // act
-        UserInterface.displayParkDetail(park);
+        UserInput.displayParkDetail(park);
         outStream.flush();
 
         // assert

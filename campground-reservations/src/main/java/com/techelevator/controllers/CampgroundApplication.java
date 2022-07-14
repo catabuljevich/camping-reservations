@@ -1,19 +1,77 @@
 package com.techelevator.controllers;
 
-import javax.sql.DataSource;
+import com.techelevator.models.dao.*;
+import com.techelevator.models.dto.Park;
+import com.techelevator.views.UserOutput;
+import com.techelevator.views.UserInput;
 
-public class CampgroundApplication
-{
+import javax.sql.DataSource;
+import java.util.List;
+
+
+public class CampgroundApplication {
+
+    private  ParkDao parkDao;
+    private CampgroundDao campgroundDao;
+    private SiteDao siteDao;
+    private ReservationDao reservationDao;
+
     public CampgroundApplication(DataSource datasource) {
         // create your DAOs here
+        parkDao = new JdbcParkDao(datasource);
+        campgroundDao = new JdbcCampgroundDao(datasource);
+        siteDao = new JdbcSiteDao(datasource);
+        reservationDao = new JdbcReservationDao(datasource);
+
     }
 
     public void run() {
+        boolean executeAplication = true;
+         while(executeAplication) {
+            // todo: display home screen
+            UserOutput.displayHomeScreen();
 
-        while(true) {
+            // todo: and get user choice
+            String userChoice =  UserInput.getHomeScreenSelection();
 
-            //display home screen and prompt for user input
+
+            if(userChoice.equalsIgnoreCase("list")) {
+                // todo: logic to display all vending machine items
+                displayParks(parkDao.getAllParks());
+
+
+            } else if(userChoice.equalsIgnoreCase("reserve")) {
+                // todo: logic reserve
+                selectPark();
+                displayParks(parkDao.getAllParks());
+
+
+
+
+
+            }else if(userChoice.equalsIgnoreCase("invalid")) {
+            // todo:
+                UserOutput.invalidOption();
+                UserOutput.displayHomeScreen();
+                userChoice =  UserInput.getHomeScreenSelection();
+
+            }
+
+            else if(userChoice.equalsIgnoreCase("exit")) {
+                // break out of the loop and end the application
+                executeAplication = false;
+                break;
+            }
+
 
         }
+    }
+
+    private void selectPark() {
+        UserOutput.displaySelectItems();
+    }
+
+    private void displayParks(List<Park> allParks) {
+        UserOutput.displayParks( allParks);
     }
 }

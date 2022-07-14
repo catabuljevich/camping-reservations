@@ -3,10 +3,9 @@ package com.techelevator.views;
 import com.techelevator.models.dto.Park;
 
 import java.io.InputStream;
-import java.io.PrintStream;
 import java.util.Scanner;
 
-public class UserInterface
+public class UserInput
 {
     private static Scanner in = new Scanner(System.in);
 
@@ -44,4 +43,6 @@ public class UserInterface
         System.out.println("--------------------");
         System.out.println("Area: " + park.getArea());
     }
+
+
 }

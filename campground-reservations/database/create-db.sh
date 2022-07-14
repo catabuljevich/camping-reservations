@@ -1,4 +1,4 @@
-#!/bin/bash
+  #!/bin/bash
 export PGPASSWORD='postgres1'
 
 psql -U postgres -f "./createdb.sql" &&

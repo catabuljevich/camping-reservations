@@ -3,10 +3,13 @@ package com.techelevator.controllers;
 import com.techelevator.models.dao.*;
 import com.techelevator.models.dto.Campground;
 import com.techelevator.models.dto.Park;
+import com.techelevator.models.dto.Site;
 import com.techelevator.views.UserOutput;
 import com.techelevator.views.UserInput;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static com.techelevator.views.UserInput.displayParkDetail;
@@ -60,10 +63,22 @@ public class CampgroundApplication {
                 } else if (menuChoise.equalsIgnoreCase("Search for Reservation")) {
                     selectCampground();
                     displayCampgrounds(campgroundDao.getAllCampgrounds());
+                    String campgroundChoise = UserInput.getCampSelection();
 
-                   // String campgroudChoise = UserInput.getCampSelection();
-                    //Campground campground = campgroundDao.getCampgroundById(Integer.parseInt(campgroudChoise));
+
+                    LocalDate entryDate = UserInput.getEntryDate();
+                    LocalDate exitDate = UserInput.getExitDate();
+
+                    List<Site> availableSite = siteDao.getAvailableSites(campgroundChoise,entryDate, exitDate);
+
+
+
+
                     //displayCampgroundsDetails(campground);
+
+                } else if (menuChoise.equalsIgnoreCase("Return to Previous Screen")) {
+
+                    
                 }
 
             } else if (userChoice.equalsIgnoreCase("invalid")) {
@@ -83,6 +98,8 @@ public class CampgroundApplication {
 
 
     }
+
+
 
     private void selectCampground() {
         UserOutput.selectCampground();

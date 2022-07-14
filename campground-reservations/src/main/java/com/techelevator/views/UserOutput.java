@@ -44,7 +44,6 @@ public class UserOutput {
 
 
         }
-        System.out.println();
 
     }
 
@@ -83,19 +82,65 @@ public class UserOutput {
             String campgroundClose =  campground.getOpenToMonth();
             BigDecimal campgroundFee = campground.getDailyFee();
 
-            String parkInfo= String.format( "%s %16s %10s %10s %50s ",campgroundNumber, campgroundName, campgroundOpen, campgroundClose, campgroundFee) ;
+            String numbertomonth1 = numberToMonth(campgroundOpen);
+
+
+            String numbertomonth2 = numberToMonth(campgroundClose);
+
+
+            String parkInfo= String.format( "%s %16s %10s %10s %50s ",campgroundNumber, campgroundName, numbertomonth1, numbertomonth2, campgroundFee) ;
             System.out.println(parkInfo);
+
+
 
 
         }
         System.out.println();
 
     }
+    public static String numberToMonth(String month) {
+
+        switch (month) {
+            case "01":
+                return "January";
+            case "02":
+                return "February";
+            case "03":
+                return "March";
+            case "04":
+                return "April";
+            case "05":
+                return "May";
+            case "06":
+                return "June";
+            case "07":
+                return "July";
+            case "08":
+                return "August";
+            case "09":
+                return "September";
+            case "10":
+                return "October";
+            case "11":
+                return "November";
+            case "12":
+                return "December";
+
+
+        }
+
+        return month;
+    }
+
 
     public static void selectCampground() {
         System.out.println("**************************************************************************");
         System.out.println("                   Select a ID Campground for Further Details ");
 
     }
+
+
 }
+
+
 

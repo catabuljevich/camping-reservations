@@ -1,8 +1,10 @@
 package com.techelevator.views;
 
+import com.techelevator.models.dto.Campground;
 import com.techelevator.models.dto.Park;
 
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class UserInput
@@ -80,5 +82,37 @@ public class UserInput
 
     }
 
+    public static void displayCampgroundsDetails(Campground campground)
+    {
+        System.out.println("Park Campgrounds");
+        System.out.println(campground.getName() + " National Park");
+        System.out.println("Location: " + cam.getLocation());
+        System.out.println("Established: " + park.getDate() + " sq km");
+        System.out.println("Area: " + park.getArea());
+        System.out.println("Annual Visitors: " + park.getVisitors());
+        System.out.println();
+        System.out.println(park.getDescription());
+    }
 
+
+
+    public static String getCampSelection() {
+        System.out.println("Which campground (enter 0 to cancel)?");
+        String choice = in.nextLine().trim().toLowerCase();
+        return choice;
+    }
+
+    public static LocalDate getEntryDate() {
+        System.out.println("What is the arrival date?");
+        System.out.println("yyyy-MM-dd");
+        String choice = in.nextLine().trim().toLowerCase();
+        return LocalDate.parse(choice);
+    }
+
+    public static LocalDate getExitDate() {
+        System.out.println("What is the departure date?");
+        System.out.println("yyyy-MM-dd");
+        String choice = in.nextLine().trim().toLowerCase();
+        return LocalDate.parse(choice);
+    }
 }

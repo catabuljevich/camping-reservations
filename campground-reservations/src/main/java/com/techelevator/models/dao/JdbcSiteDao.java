@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +57,24 @@ public class JdbcSiteDao implements SiteDao{
         }
         return mySite;
 
+    }
+
+    @Override
+    public List<Site> getAvailableSites(String campgroundChoise, LocalDate entryDate, LocalDate exitDate) {
+        List <Site> sites= new ArrayList<>();
+        String sql = "SELECT site_id " +
+                "     , campground_id " +
+                "     , site_number " +
+                "     , max_occupancy " +
+                "     , accessible " +
+                "     , max_rv_length " +
+                "     , utilities " +
+                " FROM site;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        while (results.next()) {
+            sites.add(mapRowToSite(results));
+        }
+        return sites;
     }
 
     private Site mapRowToSite(SqlRowSet results) {

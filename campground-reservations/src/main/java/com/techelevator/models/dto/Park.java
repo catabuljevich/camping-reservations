@@ -7,7 +7,8 @@ public class Park
     private int parkId;
     private String name;
     private String location;
-    private LocalDate date;
+
+    private LocalDate estalishedDate;
     private int area;
     private int visitors;
     private String description;
@@ -21,7 +22,7 @@ public class Park
         this.parkId = parkId;
         this.name = name;
         this.location = location;
-        this.date = date;
+        this.estalishedDate = date;
         this.area = area;
         this.visitors = visitors;
         this.description = description;
@@ -59,12 +60,12 @@ public class Park
 
     public LocalDate getDate()
     {
-        return date;
+        return estalishedDate;
     }
 
     public void setDate(LocalDate date)
     {
-        this.date = date;
+        this.estalishedDate = date;
     }
 
     public int getArea()

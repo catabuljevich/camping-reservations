@@ -155,6 +155,7 @@ public class UserOutput {
         String header5 = "Utility";
         String header6 = "Cost";
 
+        int count = 0;
         String totalHeader = String.format("%s %16s %10s %10s %20s %5s ", header1, header2, header3, header4, header5, header6);
         System.out.println(totalHeader);
         for (Site site : availableSites) {
@@ -168,6 +169,10 @@ public class UserOutput {
 
             String siteInfo = String.format("%s %16s %10s %10s %26s   %.2f  ", siteNumber, maxOccupancy, accessible, maxRvLength, utilities, finalCost);
             System.out.println(siteInfo);
+            count ++;
+            if (count ==5 ){
+                return;
+            }
 
         }
     }
@@ -176,6 +181,12 @@ public class UserOutput {
         System.out.println("**************************************************************************");
         System.out.println("Thank you for choosing us! "+ reservation.getName());
         System.out.println( "The reservation has been made and the confirmation id is: " + reservation.getReservationId());
+    }
+
+    public static void displayNoAvailability() {
+        System.out.println("**************************************************************************");
+        System.out.println("                  No sites available for these dates   ");
+
     }
 }
 

@@ -81,19 +81,6 @@ public class UserInput
         }
 
     }
-//
-//    public static void displayCampgroundsDetails(Campground campground)
-//    {
-//        System.out.println("Park Campgrounds");
-//        System.out.println(campground.getName() + " National Park");
-//        System.out.println("Location: " + cam.getLocation());
-//        System.out.println("Established: " + park.getDate() + " sq km");
-//        System.out.println("Area: " + park.getArea());
-//        System.out.println("Annual Visitors: " + park.getVisitors());
-//        System.out.println();
-//        System.out.println(park.getDescription());
-//    }
-
 
 
     public static String getCampSelection() {

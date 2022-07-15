@@ -74,6 +74,14 @@ public class CampgroundApplication {
                             int monthFrom = entryDate.getMonthValue();
                             int monthTo = exitDate.getMonthValue();
                             List<Site> availableSites = siteDao.getAvailableSites(campgroundChoise, monthFrom, monthTo, entryDate, exitDate);
+                            while (availableSites.size() == 0){
+                                displayNoAvailability();
+                                 entryDate = UserInput.getEntryDate();
+                                 exitDate = UserInput.getExitDate();
+                                 monthFrom = entryDate.getMonthValue();
+                                 monthTo = exitDate.getMonthValue();
+                                 availableSites = siteDao.getAvailableSites(campgroundChoise, monthFrom, monthTo, entryDate, exitDate);
+                            }
                             displayAvilableSites(availableSites, entryDate, exitDate);
                             int siteChoice = Integer.parseInt(UserInput.getSiteSelecion());
                             if (siteChoice == 0) {
@@ -110,6 +118,10 @@ public class CampgroundApplication {
         }
 
 
+    }
+
+    private void displayNoAvailability() {
+        UserOutput.displayNoAvailability();
     }
 
     private void diplayReservationConfirmation(Reservation reservation) {

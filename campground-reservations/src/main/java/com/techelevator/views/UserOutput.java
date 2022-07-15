@@ -2,8 +2,12 @@ package com.techelevator.views;
 
 import com.techelevator.models.dto.Campground;
 import com.techelevator.models.dto.Park;
+import com.techelevator.models.dto.Reservation;
+import com.techelevator.models.dto.Site;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +68,7 @@ public class UserOutput {
         System.out.println("");
 
 
-        String header1 ="Campground Number";
+        String header1 ="No.";
         String header2 ="Name";
         String header3 ="Open";
         String header4 ="Close";
@@ -72,7 +76,7 @@ public class UserOutput {
 
 
 
-        String totalHeader= String.format( "%s %16s %10s %10s %50s ",header1,header2,header3,header4,header5) ;
+        String totalHeader= String.format( "%s %30s %10s %10s %25s ",header1,header2,header3,header4,header5) ;
         System.out.println(totalHeader);
         for(Campground campground: allCampgrounds)
         {
@@ -88,7 +92,7 @@ public class UserOutput {
             String numbertomonth2 = numberToMonth(campgroundClose);
 
 
-            String parkInfo= String.format( "%s %16s %10s %10s %50s ",campgroundNumber, campgroundName, numbertomonth1, numbertomonth2, campgroundFee) ;
+            String parkInfo= String.format( "%s %30s %10s %10s %20s ",campgroundNumber, campgroundName, numbertomonth1, numbertomonth2, campgroundFee) ;
             System.out.println(parkInfo);
 
 
@@ -140,6 +144,39 @@ public class UserOutput {
     }
 
 
+    public static void selectSite(List<Site> availableSites, LocalDate entryDate, LocalDate exitDate ) {
+        System.out.println("**************************************************************************");
+        System.out.println("     Results Matching Your Search Criteria -Select site Id  ");
+
+        String header1 = "Site No.";
+        String header2 = "Max Occup.";
+        String header3 = "Accesible?";
+        String header4 = "Max RV Length";
+        String header5 = "Utility";
+        String header6 = "Cost";
+
+        String totalHeader = String.format("%s %16s %10s %10s %20s %5s ", header1, header2, header3, header4, header5, header6);
+        System.out.println(totalHeader);
+        for (Site site : availableSites) {
+            int siteNumber = site.getSiteId();
+            int maxOccupancy = site.getMaxOccupancy();
+            boolean accessible = site.isAccessible();
+            int maxRvLength = site.getMaxRvLength();
+            boolean utilities = site.isUtilities();
+            BigDecimal cost = site.getFee();
+            BigDecimal finalCost = cost.multiply(BigDecimal.valueOf(ChronoUnit.DAYS.between( entryDate ,exitDate )));
+
+            String siteInfo = String.format("%s %16s %10s %10s %26s   %.2f  ", siteNumber, maxOccupancy, accessible, maxRvLength, utilities, finalCost);
+            System.out.println(siteInfo);
+
+        }
+    }
+
+    public static void displayReservation(Reservation reservation) {
+        System.out.println("**************************************************************************");
+        System.out.println("Thank you for choosing us! "+ reservation.getName());
+        System.out.println( "The reservation has been made and the confirmation id is: " + reservation.getReservationId());
+    }
 }
 
 

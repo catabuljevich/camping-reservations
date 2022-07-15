@@ -13,7 +13,6 @@ public interface ReservationDao {
 
     Reservation getReservationById(int reservationId);
 
-     Reservation createReservation(int siteId, String name, LocalDate fromDate, LocalDate toDate, LocalDate today);
 
-
+    Reservation createReservation(int siteChoice, String reservationName, LocalDate entryDate, LocalDate exitDate, LocalDate today);
 }

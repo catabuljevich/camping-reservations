@@ -58,14 +58,15 @@ public class JdbcReservationDao implements ReservationDao{
     }
 
     @Override
-    public Reservation createReservation(int siteId, String name, LocalDate fromDate, LocalDate toDate, LocalDate today) {
+    public Reservation createReservation(int siteChoice, String reservationName, LocalDate entryDate, LocalDate exitDate, LocalDate today) {
         String sql = "INSERT INTO reservation ( site_id, name, from_date, to_date ,create_date) " +
-                "VALUES (?, ?, ? ,? , ? ) " +
+                " VALUES (?, ?, ? ,? , ? )  " +
                 "RETURNING reservation_id; ";
-        int newId = jdbcTemplate.queryForObject(sql, siteId, name, fromDate, toDate, today);
+        int newId = jdbcTemplate.queryForObject(sql, Integer.class, siteChoice, reservationName, entryDate, exitDate, today);
 
         return getReservationById(newId);
     }
+
 
 
     private Reservation mapRowToReservations(SqlRowSet results) {

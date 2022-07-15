@@ -1,5 +1,7 @@
 package com.techelevator.models.dto;
 
+import java.math.BigDecimal;
+
 public class Site {
 
     private int siteId;
@@ -16,10 +18,20 @@ public class Site {
 
     private boolean utilities;
 
+    public BigDecimal getFee() {
+        return fee;
+    }
+
+    public void setFee(BigDecimal fee) {
+        this.fee = fee;
+    }
+
+    private BigDecimal fee;
+
     public Site() {
     }
 
-    public Site(int siteId, int campgroundId, int siteNumber, int maxOccupancy, boolean accessible, int maxRvLength, boolean utilities) {
+    public Site(int siteId, int campgroundId, int siteNumber, int maxOccupancy, boolean accessible, int maxRvLength, boolean utilities, BigDecimal fee) {
         this.siteId = siteId;
         this.campgroundId = campgroundId;
         this.siteNumber = siteNumber;
@@ -27,6 +39,7 @@ public class Site {
         this.accessible = accessible;
         this.maxRvLength = maxRvLength;
         this.utilities = utilities;
+        this.fee = fee;
     }
 
     public int getSiteId() {

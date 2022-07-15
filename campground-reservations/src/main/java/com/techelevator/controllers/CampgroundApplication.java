@@ -3,6 +3,7 @@ package com.techelevator.controllers;
 import com.techelevator.models.dao.*;
 import com.techelevator.models.dto.Campground;
 import com.techelevator.models.dto.Park;
+import com.techelevator.models.dto.Reservation;
 import com.techelevator.models.dto.Site;
 import com.techelevator.views.UserOutput;
 import com.techelevator.views.UserInput;
@@ -60,24 +61,36 @@ public class CampgroundApplication {
                 if (menuChoise.equalsIgnoreCase("list of Campgrounds")) {
                     displayCampgrounds(campgroundDao.getAllCampgrounds());
 
-                } else if (menuChoise.equalsIgnoreCase("Search for Reservation")) {
+                } else if (menuChoise.equalsIgnoreCase("reserve Campground")) {
                     selectCampground();
                     displayCampgrounds(campgroundDao.getAllCampgrounds());
-                    String campgroundChoise = UserInput.getCampSelection();
+                    int campgroundChoise = Integer.parseInt(UserInput.getCampSelection());
+                        if(campgroundChoise ==0 ){
+                            UserOutput.displayHomeScreen();
+                            userChoice = UserInput.getHomeScreenSelection();
+                        }else {
+                            LocalDate entryDate = UserInput.getEntryDate();
+                            LocalDate exitDate = UserInput.getExitDate();
+                            int monthFrom = entryDate.getMonthValue();
+                            int monthTo = exitDate.getMonthValue();
+                            List<Site> availableSites = siteDao.getAvailableSites(campgroundChoise, monthFrom, monthTo, entryDate, exitDate);
+                            displayAvilableSites(availableSites, entryDate, exitDate);
+                            int siteChoice = Integer.parseInt(UserInput.getSiteSelecion());
+                            if (siteChoice == 0) {
+                                UserOutput.displayHomeScreen();
+                                userChoice = UserInput.getHomeScreenSelection();
+                            } else {
+                                String reservationName = UserInput.getReservationNAme();
+                                LocalDate today = LocalDate.now();
+                                Reservation reservation = reservationDao.createReservation(siteChoice, reservationName, entryDate, exitDate, today);
+                                diplayReservationConfirmation(reservation);
+                            }
 
+                        }
 
-                    LocalDate entryDate = UserInput.getEntryDate();
-                    LocalDate exitDate = UserInput.getExitDate();
-
-                    List<Site> availableSite = siteDao.getAvailableSites(campgroundChoise,entryDate, exitDate);
-
-
-
-
-                    //displayCampgroundsDetails(campground);
-
-                } else if (menuChoise.equalsIgnoreCase("Return to Previous Screen")) {
-
+                } else if (menuChoise.equalsIgnoreCase("exit")) {
+                    executeAplication = false;
+                    break;
                     
                 }
 
@@ -99,6 +112,14 @@ public class CampgroundApplication {
 
     }
 
+    private void diplayReservationConfirmation(Reservation reservation) {
+        UserOutput.displayReservation(reservation);
+    }
+
+    private void displayAvilableSites(List<Site> availableSites, LocalDate entryDate, LocalDate exitDate) {
+        UserOutput.selectSite(availableSites, entryDate, exitDate);
+
+    }
 
 
     private void selectCampground() {

@@ -81,18 +81,18 @@ public class UserInput
         }
 
     }
-
-    public static void displayCampgroundsDetails(Campground campground)
-    {
-        System.out.println("Park Campgrounds");
-        System.out.println(campground.getName() + " National Park");
-        System.out.println("Location: " + cam.getLocation());
-        System.out.println("Established: " + park.getDate() + " sq km");
-        System.out.println("Area: " + park.getArea());
-        System.out.println("Annual Visitors: " + park.getVisitors());
-        System.out.println();
-        System.out.println(park.getDescription());
-    }
+//
+//    public static void displayCampgroundsDetails(Campground campground)
+//    {
+//        System.out.println("Park Campgrounds");
+//        System.out.println(campground.getName() + " National Park");
+//        System.out.println("Location: " + cam.getLocation());
+//        System.out.println("Established: " + park.getDate() + " sq km");
+//        System.out.println("Area: " + park.getArea());
+//        System.out.println("Annual Visitors: " + park.getVisitors());
+//        System.out.println();
+//        System.out.println(park.getDescription());
+//    }
 
 
 
@@ -114,5 +114,17 @@ public class UserInput
         System.out.println("yyyy-MM-dd");
         String choice = in.nextLine().trim().toLowerCase();
         return LocalDate.parse(choice);
+    }
+
+    public static String getSiteSelecion() {
+        System.out.println("Which site should be reserved (enter 0 to cancel)? ");
+        String choice = in.nextLine().trim().toLowerCase();
+        return choice;
+    }
+
+    public static String getReservationNAme() {
+        System.out.println("What name should the reservation be made under? _ ");
+        String name = in.nextLine().trim().toLowerCase();
+        return name;
     }
 }

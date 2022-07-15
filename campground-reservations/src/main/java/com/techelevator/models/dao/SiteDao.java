@@ -13,5 +13,5 @@ public interface SiteDao {
     Site getSiteById(int siteId);
 
 
-    List<Site> getAvailableSites(String campgroundChoise, LocalDate entryDate, LocalDate exitDate);
+    List<Site> getAvailableSites(int campgroundChoise, int monthFrom, int monthTo, LocalDate entryDate, LocalDate exitDate);
 }

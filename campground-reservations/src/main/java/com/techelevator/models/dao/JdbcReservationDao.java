@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,17 @@ public class JdbcReservationDao implements ReservationDao{
         }
         return myReservation;
     }
+
+    @Override
+    public Reservation createReservation(int siteId, String name, LocalDate fromDate, LocalDate toDate, LocalDate today) {
+        String sql = "INSERT INTO reservation ( site_id, name, from_date, to_date ,create_date) " +
+                "VALUES (?, ?, ? ,? , ? ) " +
+                "RETURNING reservation_id; ";
+        int newId = jdbcTemplate.queryForObject(sql, siteId, name, fromDate, toDate, today);
+
+        return getReservationById(newId);
+    }
+
 
     private Reservation mapRowToReservations(SqlRowSet results) {
         Reservation reservation = new Reservation();
